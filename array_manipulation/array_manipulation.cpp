@@ -1,3 +1,13 @@
+/*
+	* Given a range[a,b] and a value we need to add to k all the numbers whose indices are in the range from [a,b].
+
+	*We can do an O(1) update by adding k to index a and add -k to index (b + 1)
+	*Doing this kind of update, ith number in the array will be prefix sum of array from index 1 to i because we are adding k 
+	*to the value at index a and subtracting k from the value at index b + 1 and taking prefix sum will give us the actual value for each index after m operations.
+	*So, we can do all m updates in O(m) time. Now we have to check the largest number in the original array. i.e. the index i such that prefix sum attains the maximum value.
+	*We can calculate all prefix sums as well as maximum prefix sum in O(n) time which will execute in time.
+*/
+
 #include <bits/stdc++.h>
 
 using namespace std;

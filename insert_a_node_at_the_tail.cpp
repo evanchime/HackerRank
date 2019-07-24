@@ -64,20 +64,13 @@ SinglyLinkedListNode* insertNodeAtTail(SinglyLinkedListNode* head, int data) {
     }
     
     SinglyLinkedListNode *temp = head;
-    while(head){
-        head = head->next;
-    }
-    head = (SinglyLinkedListNode *)malloc(sizeof(SinglyLinkedListNode));
-    head->data = data;
-    head->next = nullptr;
-    
-    return temp;
-	/*SinglyLinkedListNode *temp = head;
-    while(temp){
+    while(temp->next){
         temp = temp->next;
     }
-    temp = new SinglyLinkedListNode(data);
-    return head;*/
+    temp->next = (SinglyLinkedListNode *)malloc(sizeof(SinglyLinkedListNode));
+    temp->next->data = data;
+    temp->next->next = nullptr;
+    return head;
 }
 
 int main()

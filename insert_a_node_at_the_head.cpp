@@ -58,18 +58,12 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
  *
  */
 SinglyLinkedListNode* insertNodeAtHead(SinglyLinkedListNode* head, int data) {
-if(head == nullptr){
-        head = (SinglyLinkedListNode *)malloc(sizeof(SinglyLinkedListNode));
-        head->data = data;
-        head->next = nullptr;
-        return head;
-    }
 
     SinglyLinkedListNode *temp = (SinglyLinkedListNode *)malloc(sizeof(SinglyLinkedListNode));
     temp->data = data;
     temp->next = head;
-    return temp;
-
+    head = temp;
+    return head;
 
 }
 
@@ -94,6 +88,8 @@ int main()
     }
 
     print_singly_linked_list(llist->head, "\n", fout);
+    print_singly_linked_list(llist->head, "\n", myfout);
+
     fout << "\n";
 
     free_singly_linked_list(llist->head);

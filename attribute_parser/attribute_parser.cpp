@@ -25,20 +25,22 @@ int main() {
                 // get tag name
                 if(tag[1] == '/'){ 
 			pos0 = tag.find(">");
-			if(root_tag == tag.substr(2, pos0 - 2))
-				root_flag ^= 1;
+			if(root_tag == tag.substr(2, pos0 - 2)){
+				root_flag = 0;
+				inner_flag = 0;
+			}
 			else
-				inner_flag ^= 1;
+				inner_flag = 1;
 			continue;
 		}
                 pos1 = tag.find_first_of("\x20>");
 		if(!root_flag){
 			root_tag = tag_name = tag.substr(1, pos1 - 1);
-			root_flag ^= 1;
-		}else if(inner_tag){
+			root_flag = 1;
+		}else if(inner_flag){
 			pos5 = tag_name.find_first_of(".");
 			tag_name = tag_name.substr(0, pos5 + 1) + tag.substr(1, pos1 - 1);
-			inner_tag ^= 1;
+			inner_flag = 0;
 		}else{
 			tag_name += ("." + tag.substr(1, pos1 - 1));
 		}
@@ -58,14 +60,7 @@ int main() {
 
         for (int i = 0; i < Q; ++i){
                 getline(cin, tag);
-                /*pos1 = tag.find_last_of(".");
-                if(pos1 == string::npos)
-                        pos1 = 0;
-                else
-                        pos1 += 1;*/
-                //pos2 = tag.find("~", pos1);
 		pos1 = tag.find("~");
-                //tag_name = tag.substr(pos1, pos2 - pos1);
                 tag_name = tag.substr(0, pos1);
 		attr_name = tag.substr(pos1 + 1);
                 auto temp = tag_map[tag_name][attr_name];
@@ -73,10 +68,6 @@ int main() {
         }
 
         cout << queries << endl;
-	/*string x = "<tag1>";
-	auto pos = x.find_first_of("  >");
-	cout << pos << endl;*/
-
   
     return 0;
-
+}

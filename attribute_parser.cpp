@@ -13,8 +13,8 @@ int main() {
     using name_value = map<string,string>;
         map<string,name_value>tag_map;
         string root_tag, tag, tag_name, attr_name, value, queries;
-        string::size_type pos0, pos1, pos2, pos3, pos4;
-        int N, Q, flag{};
+        string::size_type pos0, pos1, pos2, pos3, pos4, pos5;
+        int N, Q, inner_flag{}, root_flag{};
 
         cin >> N >> Q;
         cin.ignore(numeric_limits<std::streamsize>::max(),'\n');
@@ -26,13 +26,19 @@ int main() {
                 if(tag[1] == '/'){ 
 			pos0 = tag.find(">");
 			if(root_tag == tag.substr(2, pos0 - 2))
-				flag ^= 1;
+				root_flag ^= 1;
+			else
+				inner_flag ^= 1;
 			continue;
 		}
                 pos1 = tag.find_first_of("\x20>");
-		if(!flag){
+		if(!root_flag){
 			root_tag = tag_name = tag.substr(1, pos1 - 1);
-			flag ^= 1;
+			root_flag ^= 1;
+		}else if(inner_tag){
+			pos5 = tag_name.find_first_of(".");
+			tag_name = tag_name.substr(0, pos5 + 1) + tag.substr(1, pos1 - 1);
+			inner_tag ^= 1;
 		}else{
 			tag_name += ("." + tag.substr(1, pos1 - 1));
 		}
@@ -73,4 +79,4 @@ int main() {
 
   
     return 0;
-}
+
